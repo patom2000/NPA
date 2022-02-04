@@ -10,7 +10,7 @@ ip_list = [i for i in routers.values()]
 def config_loopback(ip, username, password, ip_loopback):
     """telnet and login to router"""
     child = pexpect.spawn(f'telnet {ip}') #Note spawn ใช้ได้แค่นอก window https://pexpect.readthedocs.io/en/stable/overview.html#pexpect-on-windows
-    child.expect('Username')
+    child.expect('Username', timeout=120)
     child.sendline(username)
     child.expect("Password")
     child.sendline(password)
