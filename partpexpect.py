@@ -16,13 +16,15 @@ def config_loopback(ip, username, password, ip_loopback):
     child.sendline(password)
     child.expect('#')
     child.sendline('conf t')
-    child.expect("(config)#")
+    child.expect("#")
     child.sendline('int loopback 0')
-    child.expect("(config-if)#")
-    child.sendline(f'ip address {ip_loopback}')
+    child.expect("#")
+    child.sendline(f'ip address {ip_loopback} 255.255.255.255')
+    child.expect("#")
     child.sendline('end')
     child.expect("#")
     child.sendline('wr')
+    child.expect("#")
     child.close()
 
 for ip in ip_list:
