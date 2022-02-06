@@ -1,0 +1,340 @@
+{
+  "R1": {
+    "global_config": {
+      "ospf": {
+        "process_id": "1",
+        "vrf_name": "control-Data",
+        "networks": [
+            {
+              "ip": "172.31.101.16",
+              "wildcard": "0.0.0.15",
+              "area": "0"
+            },
+            {
+                "ip": "172.31.101.32",
+                "wildcard": "0.0.0.15",
+                "area": "0"
+            },
+            {
+                "ip": "172.31.101.48",
+                "wildcard": "0.0.0.15",
+                "area": "0"
+            },
+            {
+                "ip": "1.1.1.1",
+                "wildcard": "255.255.255.255",
+                "area": "0"
+            }
+        ],
+        "default_info_originate": false
+      },
+      "access_list": [
+        {
+          "acl_number": "101",
+          "permit_deny": "permit",
+          "protocol": "tcp",
+          "source": "172.31.101.0 0.0.0.15",
+          "destination": "any",
+          "port": "telnet"
+        },
+        {
+          "acl_number": "101",
+          "permit_deny": "permit",
+          "protocol": "tcp",
+          "source": "172.31.101.0 0.0.0.15",
+          "destination": "any",
+          "port": "22"
+        },
+        {
+            "acl_number": "101",
+            "permit_deny": "permit",
+            "protocol": "tcp",
+            "source": "10.253.190.0 0.0.0.255",
+            "destination": "any",
+            "port": "telnet"
+        },
+        {
+            "acl_number": "101",
+            "permit_deny": "permit",
+            "protocol": "tcp",
+            "source": "10.253.190.0 0.0.0.255",
+            "destination": "any",
+            "port": "22"
+        },
+        {
+            "acl_number": "101",
+            "permit_deny": "deny",
+            "protocol": "tcp",
+            "source": "any",
+            "destination": "any",
+            "port": "telnet"
+        },
+        {
+            "acl_number": "101",
+            "permit_deny": "deny",
+            "protocol": "tcp",
+            "source": "any",
+            "destination": "any",
+            "port": "22"
+        },
+        {
+            "acl_number": "101",
+            "permit_deny": "permit",
+            "protocol": "tcp",
+            "source": "any",
+            "destination": "any",
+            "port": ""
+        }
+      ],
+      "interfaces":[
+          {
+            "port":"",
+            "nat_in_out":"",
+            "ip": ,
+            "netmask":
+          }
+        ]
+      ,
+      "line_vty": {
+        "min": "0",
+        "max": "924",
+        "access_classes": [
+          {
+            "acl_number": "101",
+            "in_out": "in"
+          }
+        ]
+      }
+    }
+  },
+  "R2": {
+    "global_config": {
+      "ospf": {
+        "process_id": "1",
+        "vrf_name": "control-Data",
+        "networks": [
+            {
+              "ip": "172.31.101.16",
+              "wildcard": "0.0.0.15",
+              "area": "0"
+            },
+            {
+                "ip": "172.31.101.32",
+                "wildcard": "0.0.0.15",
+                "area": "0"
+            },
+            {
+                "ip": "172.31.101.48",
+                "wildcard": "0.0.0.15",
+                "area": "0"
+            },
+            {
+                "ip": "2.2.2.2",
+                "wildcard": "255.255.255.255",
+                "area": "0"
+            }
+        ],
+        "default_info_originate": false
+      },
+      "access_list": [
+        {
+            "acl_number": "101",
+            "permit_deny": "permit",
+            "protocol": "tcp",
+            "source": "172.31.101.0 0.0.0.15",
+            "destination": "any",
+            "port": "telnet"
+          },
+          {
+            "acl_number": "101",
+            "permit_deny": "permit",
+            "protocol": "tcp",
+            "source": "172.31.101.0 0.0.0.15",
+            "destination": "any",
+            "port": "22"
+          },
+          {
+              "acl_number": "101",
+              "permit_deny": "permit",
+              "protocol": "tcp",
+              "source": "10.253.190.0 0.0.0.255",
+              "destination": "any",
+              "port": "telnet"
+          },
+          {
+              "acl_number": "101",
+              "permit_deny": "permit",
+              "protocol": "tcp",
+              "source": "10.253.190.0 0.0.0.255",
+              "destination": "any",
+              "port": "22"
+          },
+          {
+              "acl_number": "101",
+              "permit_deny": "deny",
+              "protocol": "tcp",
+              "source": "any",
+              "destination": "any",
+              "port": "telnet"
+          },
+          {
+              "acl_number": "101",
+              "permit_deny": "deny",
+              "protocol": "tcp",
+              "source": "any",
+              "destination": "any",
+              "port": "22"
+          },
+          {
+              "acl_number": "101",
+              "permit_deny": "permit",
+              "protocol": "tcp",
+              "source": "any",
+              "destination": "any",
+              "port": ""
+          }
+      ],
+      "interfaces":[
+        {
+          "port":"",
+          "nat_in_out":"",
+          "ip": ,
+          "netmask":
+        }
+      ]
+    ,
+      "line_vty": {
+        "min": "0",
+        "max": "924",
+        "access_classes": [
+          {
+            "acl_number": "101",
+            "in_out": "in"
+          }
+        ]
+      }
+    }
+  },
+  "R3": {
+    "global_config": {
+      "ospf": {
+        "process_id": "1",
+        "vrf_name": "control-Data",
+        "networks": [
+            {
+              "ip": "172.31.101.16",
+              "wildcard": "0.0.0.15",
+              "area": "0"
+            },
+            {
+                "ip": "172.31.101.32",
+                "wildcard": "0.0.0.15",
+                "area": "0"
+            },
+            {
+                "ip": "172.31.101.48",
+                "wildcard": "0.0.0.15",
+                "area": "0"
+            },
+            {
+                "ip": "3.3.3.3",
+                "wildcard": "255.255.255.255",
+                "area": "0"
+            }
+        ],
+        "default_info_originate": true
+      },
+      "access_list": [
+        {
+            "acl_number": "101",
+            "permit_deny": "permit",
+            "protocol": "tcp",
+            "source": "172.31.101.0 0.0.0.15",
+            "destination": "any",
+            "port": "telnet"
+          },
+          {
+            "acl_number": "101",
+            "permit_deny": "permit",
+            "protocol": "tcp",
+            "source": "172.31.101.0 0.0.0.15",
+            "destination": "any",
+            "port": "22"
+          },
+          {
+              "acl_number": "101",
+              "permit_deny": "permit",
+              "protocol": "tcp",
+              "source": "10.253.190.0 0.0.0.255",
+              "destination": "any",
+              "port": "telnet"
+          },
+          {
+              "acl_number": "101",
+              "permit_deny": "permit",
+              "protocol": "tcp",
+              "source": "10.253.190.0 0.0.0.255",
+              "destination": "any",
+              "port": "22"
+          },
+          {
+              "acl_number": "101",
+              "permit_deny": "deny",
+              "protocol": "tcp",
+              "source": "any",
+              "destination": "any",
+              "port": "telnet"
+          },
+          {
+              "acl_number": "101",
+              "permit_deny": "deny",
+              "protocol": "tcp",
+              "source": "any",
+              "destination": "any",
+              "port": "22"
+          },
+          {
+              "acl_number": "101",
+              "permit_deny": "permit",
+              "protocol": "tcp",
+              "source": "any",
+              "destination": "any",
+              "port": ""
+          }
+      ],
+      "interfaces":[
+        {
+          "port":"g0/1",
+          "nat_in_out":"inside",
+          "ip": "",
+          "netmask":""
+        },
+        {
+            "port":"g0/2",
+            "nat_in_out":"outside",
+            "ip": "dhcp",
+            "netmask":""
+          }
+      
+      ]
+    ,
+      "line_vty": {
+        "min": "0",
+        "max": "924",
+        "access_classes": [
+          {
+            "acl_number": "101",
+            "in_out": "in"
+          }
+        ]
+      },
+      "ip_nat": {
+        "in_out": "inside",
+        "acl_number": "1",
+        "interface": "Gi0/2",
+        "vrf_name": "control-Data",
+        "overload": true
+      }
+    }
+  }
+}
