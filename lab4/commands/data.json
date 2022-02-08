@@ -1,5 +1,5 @@
 {
-  "R1": {
+  "172.31.101.4": {
     "global_config": {
       "ospf": {
         "process_id": "1",
@@ -28,7 +28,7 @@
         ],
         "default_info_originate": false
       },
-      "access_list": [
+      "access_lists": [
         {
           "acl_number": "101",
           "permit_deny": "permit",
@@ -82,19 +82,9 @@
             "permit_deny": "permit",
             "protocol": "tcp",
             "source": "any",
-            "destination": "any",
-            "port": ""
+            "destination": "any"
         }
       ],
-      "interfaces":[
-          {
-            "port":"",
-            "nat_in_out":"",
-            "ip": ,
-            "netmask":
-          }
-        ]
-      ,
       "line_vty": {
         "min": "0",
         "max": "924",
@@ -107,7 +97,7 @@
       }
     }
   },
-  "R2": {
+  "172.31.101.5": {
     "global_config": {
       "ospf": {
         "process_id": "1",
@@ -136,7 +126,7 @@
         ],
         "default_info_originate": false
       },
-      "access_list": [
+      "access_lists": [
         {
             "acl_number": "101",
             "permit_deny": "permit",
@@ -190,19 +180,9 @@
               "permit_deny": "permit",
               "protocol": "tcp",
               "source": "any",
-              "destination": "any",
-              "port": ""
+              "destination": "any"
           }
       ],
-      "interfaces":[
-        {
-          "port":"",
-          "nat_in_out":"",
-          "ip": ,
-          "netmask":
-        }
-      ]
-    ,
       "line_vty": {
         "min": "0",
         "max": "924",
@@ -215,7 +195,7 @@
       }
     }
   },
-  "R3": {
+  "172.31.101.6": {
     "global_config": {
       "ospf": {
         "process_id": "1",
@@ -244,7 +224,7 @@
         ],
         "default_info_originate": true
       },
-      "access_list": [
+      "access_lists": [
         {
             "acl_number": "101",
             "permit_deny": "permit",
@@ -298,24 +278,27 @@
               "permit_deny": "permit",
               "protocol": "tcp",
               "source": "any",
-              "destination": "any",
-              "port": ""
+              "destination": "any"
+          },
+          {
+              "acl_number": "1",
+              "permit_deny": "permit",
+              "protocol": "tcp",
+              "source": "any",
+              "destination": "any"
           }
       ],
       "interfaces":[
         {
           "port":"g0/1",
-          "nat_in_out":"inside",
-          "ip": "",
-          "netmask":""
+          "nat_in_out":"inside"
         },
         {
             "port":"g0/2",
             "nat_in_out":"outside",
-            "ip": "dhcp",
-            "netmask":""
+            "ip": "dhcp"
           }
-      
+
       ]
     ,
       "line_vty": {

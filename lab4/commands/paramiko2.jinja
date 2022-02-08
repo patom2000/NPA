@@ -1,5 +1,5 @@
 en
-{% if data.global_config % }
+{% if data.global_config %}
   conf t
   {% if data.global_config.ospf %}
     router ospf {{ data.global_config.ospf.process_id }} {{ "vrf" if data.global_config.ospf.vrf_name else "" }} {{ data.global_config.ospf.vrf_name }}
@@ -13,7 +13,7 @@ en
   {% endif %}
   {% for access_list in data.global_config.access_lists %}
     access-list {{access_list.acl_number}} {{access_list.permit_deny}} {{access_list.protocol}} {{access_list.source}} {{access_list.destination}} {{ "eq" if access_list.port else "" }} {{access_list.port}}
-  {{% endfor %}}
+  {% endfor %}
   {% if data.global_config.line_vty %}
     line vty {{ data.global_config.line_vty.min }} {{ data.global_config.line_vty.max }}
     {% for access_class in data.global_config.line_vty.access_classes %}
@@ -34,4 +34,6 @@ en
   {% if data.global_config.ip_nat %}
     ip nat {{ data.global_config.ip_nat.in_out }} source list {{ data.global_config.ip_nat.acl_number }} interface {{ data.global_config.ip_nat.interface }} {{ "vrf" if data.global_config.ip_nat.vrf_name else "" }} {{ data.global_config.ip_nat.vrf_name }} {{ "overload" if data.global_config.ip_nat.overload else "" }}
   {% endif %}
+  end
+{% endif %}
 wr
