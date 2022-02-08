@@ -29,9 +29,8 @@ for ip in ip_list:
         rendered = template.render(data=data[ip])
         commands = [cmd.strip() for cmd in rendered.split("\n") if cmd.strip()]
         for command in commands:
-            print(command)
             ssh.send(f"{command}\n")
             time.sleep(1)
-            print('***')
             result = ssh.recv(2000).decode("ascii")
             print(result)
+            print('***')
