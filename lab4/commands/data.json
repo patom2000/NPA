@@ -283,7 +283,6 @@
           {
               "acl_number": "1",
               "permit_deny": "permit",
-              "protocol": "tcp",
               "source": "any",
               "destination": "any"
           }
