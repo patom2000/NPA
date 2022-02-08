@@ -283,8 +283,7 @@
           {
               "acl_number": "1",
               "permit_deny": "permit",
-              "source": "any",
-              "destination": "any"
+              "source": "any"
           }
       ],
       "interfaces":[
