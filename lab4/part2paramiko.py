@@ -56,7 +56,6 @@ commands = {
   "172.31.101.6": [
     "en", 
     "conf t",
-    "ip route 0.0.0.0 0.0.0.0 192.168.122.1",
     "router ospf 1 vrf control-Data",
     "network 172.31.101.16 0.0.0.15 area 0",
     "network 172.31.101.32 0.0.0.15 area 0",
