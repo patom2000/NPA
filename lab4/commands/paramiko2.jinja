@@ -12,7 +12,7 @@ en
     exit
   {% endif %}
   {% for access_list in data.global_config.access_lists %}
-    access-list {{access_list.acl_number}} {{access_list.permit_deny}} {{access_list.protocol}} {{access_list.source}} {{access_list.destination}} {{ "eq" if access_list.port else "" }} {{access_list.port}}
+    access-list {{access_list.acl_number}} {{access_list.permit_deny}} {{access_list.protocol}}{{" " if access_list.protocol else ""}}{{access_list.source}} {{access_list.destination}} {{ "eq" if access_list.port else "" }} {{access_list.port}}
   {% endfor %}
   {% if data.global_config.line_vty %}
     line vty {{ data.global_config.line_vty.min }} {{ data.global_config.line_vty.max }}
