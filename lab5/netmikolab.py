@@ -34,61 +34,67 @@ def get_control_data_ip_route_list(device):
 def output_text_to_list(text):
     return text.strip().split("\n")
 
-def get_result_from_interface(interface, result, interface_index):
-    for line in result[1:]:
-        words = line.split()
-        if words[interface_index][0] == interface[0] and words[interface_index][-3:] == interface[1:]:
-            return words
-
 def get_subnet(device, interface):
     data_control = get_control_data_ip_route_list(device)
     data_management = get_management_ip_route_list(device)
-    result_control = output_text_to_list(data_control)
-    result_management = output_text_to_list(data_management)
-    result_control_in_interface = get_result_from_interface(interface, result_control, -1)
-    result_management_in_interface = get_result_from_interface(interface, result_management, -1)
-    if result_control_in_interface != None:
-        return result_control_in_interface[1][-2:]
-    elif result_management_in_interface != None:
-        return result_management_in_interface[1][-2:]
-    else:
-        return "no subnet"
-    
+    data_list = output_text_to_list(data_control)
+    data_list.extend(output_text_to_list(data_management))
+    print(data_list)
+    for line in data_list[1:]:
+        try:
+            subnet, int_prefix, int_num = re.search(r"C\s+\d+\.\d+\.\d+\.\d+\/(\d+)[\w ,]+ (\w)\w+(\d\/\d+)", line).groups()
+            int_name = int_prefix + int_num
+            if int_name == interface:
+                return subnet
+        except:
+            pass
+    return "no subnet"
+
 def get_ip(device_info, interface):
     data = get_ip_list(device_info)
     data_list = output_text_to_list(data)
     for line in data_list[1:]:
-        int_prefix, int_num, int_ip = re.search(r"(\w)\w+(\d\/\d+)\s+(\d+.\d+.\d+.\d+|unassigned)", line).groups()
-        int_name = int_prefix + int_num
-        if int_name == interface:
-            return int_ip
-            
+        try:
+            int_prefix, int_num, int_ip = re.search(r"(\w)\w+(\d\/\d+)\s+(\d+\.\d+\.\d+\.\d+|unassigned)", line).groups()
+            int_name = int_prefix + int_num
+            if int_name == interface:
+                return int_ip
+        except:
+            pass
+
 def get_desc(device_info, interface):
     data = get_int_desc_list(device_info)
-    results = output_text_to_list(data)
-    result_line = get_result_from_interface(interface, results, 0)
-    if result_line[1] == "up":
-        return ' '.join(result_line[3:])
-    elif result_line[1] == "admin":
-        return ' '.join(result_line[4:])
+    data_list = output_text_to_list(data)
+    for line in data_list[1:]:
+        try:
+            int_prefix, int_num, int_desc = re.search(r"(\w)\w+(\d\/\d+)\s+(?:up|down|admin down)\s+(?:up|down|admin down)\s+(.+)\n?", line).groups()
+            int_name = int_prefix + int_num
+            if int_name == interface:
+                return int_desc
+        except:
+            pass
 
 def get_status(device_info, interface):
     data = get_int_desc_list(device_info)
-    result = output_text_to_list(data)
-    interface_status_line = get_result_from_interface(interface, result, 0)
-    if interface_status_line[1] == "admin" and interface_status_line[2] == "down":
-        return "admin down"
-    return interface_status_line[1]
+    data_list = output_text_to_list(data)
+    for line in data_list[1:]:
+        try:
+            int_prefix, int_num, int_status = re.search(r"(\w)\w+(\d\/\d+)\s+(up|down|admin down)\s+", line).groups()
+            int_name = int_prefix + int_num
+            if int_name == interface:
+                return int_status
+        except:
+            pass
 
 def get_desc_from_cdp(cdp_result, device_name):
     data = output_text_to_list(cdp_result)
     interface_description = dict()
     for line in data:
-        words = line.split()
-        if device_name == f"{words[0][:2].upper()}":
-            interface_description[f"{words[1][0]}{words[2]}"] = "Connect to WAN"
+        port_device_name, int_prefix, int_num, port_prefix, port_num = re.search(r"(\w\d)+\.npa\.com\s+(\w)\w+ (\d\/\d+)\s+\d+\s+[\w ]+\s+(\w)\w+ (\d\/\d+)", line).groups()
+        if device_name == port_device_name:
+            interface_description[f"{int_prefix}{int_num}"] = "Connect to WAN"
         else:
-            interface_description[f"{words[1][0]}{words[2]}"] = f"Connect to {words[6][0]}{words[7]} of {words[0][:2].upper()}"
+            interface_description[f"{int_prefix}{int_num}"] = f"Connect to {port_prefix}{port_num} of {port_device_name.upper()}"
     return interface_description
 
 def config_description(device_name, device):
@@ -99,12 +105,8 @@ def config_description(device_name, device):
         interface_list = output_text_to_list(interface_result)
         ssh.config_mode()
         for interface_line in interface_list:
-            interface_info = interface_line.split()
-            interface_name = interface_info[0][0]+interface_info[0][-3:]
-            interface_status = interface_info[4]
-            if len(interface_info) == 6 and interface_status == "administratively":
-                interface_status = "administratively down"
-
+            int_prefix, int_num = re.search(r"(\w)\w+(\d\/\d+)\s+", interface_line).groups()
+            interface_name = int_prefix + int_num
             try:
                 interface_desc = connection_desc_list[interface_name]
                 ssh.send_command(f"int {interface_name}", expect_string=r"\#")
