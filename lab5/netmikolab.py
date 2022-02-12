@@ -33,7 +33,6 @@ def output_text_to_list(text):
 def get_result_from_interface(interface, result, interface_index):
     for line in result[1:]:
         words = line.split()
-        print(words)
         if words[interface_index][0] == interface[0] and words[interface_index][-3:] == interface[1:]:
             return words
 
@@ -69,7 +68,6 @@ def get_status(device_info, interface):
     data = get_int_desc_list(device_info)
     result = output_text_to_list(data)
     interface_status_line = get_result_from_interface(interface, result, 0)
-    print(interface_status_line)
     if interface_status_line[1] == "admin" and interface_status_line[2] == "down":
         return "admin down"
     return interface_status_line[1]
