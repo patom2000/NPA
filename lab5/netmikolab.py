@@ -3,12 +3,15 @@ import ast #to covert env string to dict
 from dotenv import dotenv_values
 
 config = dotenv_values(".env")
-device = {
-    "device_type": "cisco_ios",
-    "ip": config["DEVICE_IP"],
-    "username": config["USERNAME"],
-    "password": config["PASSWORD"]
-}
+routers = ast.literal_eval(config["ROUTER"])
+device_list = []
+for router_name in routers:
+    device_list.append((router_name, {
+        "device_type": "cisco_ios",
+        "ip": routers[router_name],
+        "username": config["USERNAME"],
+        "password": config["PASSWORD"]
+    }))
 
 def send_ssh_command(device, command):
     with ConnectHandler(**device) as ssh:
@@ -44,9 +47,9 @@ def get_subnet(device, interface):
     result_control_in_interface = get_result_from_interface(interface, result_control, -1)
     result_management_in_interface = get_result_from_interface(interface, result_management, -1)
     if result_control_in_interface != None:
-        return result_control_in_interface[1][-3:]
+        return result_control_in_interface[1][-2:]
     elif result_management_in_interface != None:
-        return result_management_in_interface[1][-3:]
+        return result_management_in_interface[1][-2:]
     else:
         return "no subnet"
     
@@ -72,18 +75,21 @@ def get_status(device_info, interface):
         return "admin down"
     return interface_status_line[1]
 
-def get_desc_from_cdp(cdp_result):
+def get_desc_from_cdp(cdp_result, device_name):
     data = output_text_to_list(cdp_result)
     interface_description = dict()
     for line in data:
         words = line.split()
-        interface_description[f"{words[1][0]}{words[2]}"] = f"Connect to {words[6][0]}{words[7]} of {words[0][:2].upper()}"
+        if device_name == f"{words[0][:2].upper()}":
+            interface_description[f"{words[1][0]}{words[2]}"] = "Connect to WAN"
+        else:
+            interface_description[f"{words[1][0]}{words[2]}"] = f"Connect to {words[6][0]}{words[7]} of {words[0][:2].upper()}"
     return interface_description
 
-def config_description():
+def config_description(device_name, device):
     with ConnectHandler(**device) as ssh:
         cdp_result = ssh.send_command("show cdp nei | include npa.com")
-        connection_desc_list = get_desc_from_cdp(cdp_result)
+        connection_desc_list = get_desc_from_cdp(cdp_result, device_name)
         interface_result = ssh.send_command("show ip int br | include Gigabit")
         interface_list = output_text_to_list(interface_result)
         ssh.config_mode()
@@ -103,4 +109,5 @@ def config_description():
                 ssh.send_command(f"description Not Use", expect_string=r"\#")
         ssh.save_config()
 
-config_description()
+for device_name, device in device_list:
+    config_description(device_name, device)
