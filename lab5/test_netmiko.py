@@ -1,25 +1,38 @@
 from netmikolab import *
+import json
+
+test_file = open('test_data.json')
+json_data = json.load(test_file)
+test_file.close()
+
+def get_netmiko_device_info(data):
+    return {
+        "device_type": data["device_type"],
+        "ip": data["ip"],
+        "username": data["username"],
+        "password": data["password"]
+    }
 
 def test_ip():
-    assert get_ip(device, "G0/0") == "172.31.101.4"
-    assert get_ip(device, "G0/3") == "unassigned"
+    for device in json_data:
+        for interface in device["interfaces"]:
+            assert get_ip(get_netmiko_device_info(device), interface["name"]) == interface["ip"], f'IP of {interface["name"]} in {device["name"]} is incorrect'
     print("ip pass")
 
 def test_subnet():
-    assert get_subnet(device, "G0/0") == "/28"
-    assert get_subnet(device, "G0/3") == "no subnet"
+    for device in json_data:
+        for interface in device["interfaces"]:
+            assert get_subnet(get_netmiko_device_info(device), interface["name"]) == interface["subnet_mask"], f'Subnet of {interface["name"]} in {device["name"]} is incorrect'
     print("subnet pass")
 
 def test_desc():
-    assert get_desc(device, "G0/0") == "Connect to G0/2 of S0"
-    assert get_desc(device, "G0/1") == "Connect to G0/2 of S1"
-    assert get_desc(device, "G0/2") == "Connect to G0/1 of R2"
-    assert get_desc(device, "G0/3") == "Not Use"
-    print("decription pass")
+    for device in json_data:
+        for interface in device["interfaces"]:
+            assert get_desc(get_netmiko_device_info(device), interface["name"]) == interface["description"], f'Description of {interface["name"]} in {device["name"]} is incorrect'
+    print("description pass")
 
 def test_status():
-    assert get_status(device, "G0/0") == "up"
-    assert get_status(device, "G0/1") == "up"
-    assert get_status(device, "G0/2") == "up"
-    assert get_status(device, "G0/3") == "admin down"
+    for device in json_data:
+        for interface in device["interfaces"]:
+            assert get_status(get_netmiko_device_info(device), interface["name"]) == interface["status"], f'Status of {interface["name"]} in {device["name"]} is incorrect'
     print("status pass")
