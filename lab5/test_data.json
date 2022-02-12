@@ -1,0 +1,113 @@
+[
+  {
+    "device_type": "cisco_ios",
+    "ip": "172.31.101.4",
+    "name": "R1",
+    "username": "admin",
+    "password": "cisco",
+    "interfaces": [
+      {
+        "name": "G0/0",
+        "ip": "172.31.101.4",
+        "subnet_mask": "28",
+        "description": "Connect to G0/2 of S0",
+        "status": "up"
+      },
+      {
+        "name": "G0/1",
+        "ip": "172.31.101.17",
+        "subnet_mask": "28",
+        "description": "Connect to G0/2 of S1",
+        "status": "up"
+      },
+      {
+        "name": "G0/2",
+        "ip": "172.31.101.33",
+        "subnet_mask": "28",
+        "description": "Connect to G0/1 of R2",
+        "status": "up"
+      },
+      {
+        "name": "G0/3",
+        "ip": "unassigned",
+        "subnet_mask": "no subnet",
+        "description": "Not Use",
+        "status": "admin down"
+      }
+    ]
+  },
+  {
+    "device_type": "cisco_ios",
+    "ip": "172.31.101.5",
+    "name": "R2",
+    "username": "admin",
+    "password": "cisco",
+    "interfaces": [
+      {
+        "name": "G0/0",
+        "ip": "172.31.101.5",
+        "subnet_mask": "28",
+        "description": "Connect to G0/3 of S0",
+        "status": "up"
+      },
+      {
+        "name": "G0/1",
+        "ip": "172.31.101.34",
+        "subnet_mask": "28",
+        "description": "Connect to G0/2 of R1",
+        "status": "up"
+      },
+      {
+        "name": "G0/2",
+        "ip": "172.31.101.49",
+        "subnet_mask": "28",
+        "description": "Connect to G0/1 of R3",
+        "status": "up"
+      },
+      {
+        "name": "G0/3",
+        "ip": "unassigned",
+        "subnet_mask": "no subnet",
+        "description": "Not Use",
+        "status": "admin down"
+      }
+    ]
+  },
+  {
+    "device_type": "cisco_ios",
+    "ip": "172.31.101.6",
+    "name": "R3",
+    "username": "admin",
+    "password": "cisco",
+    "interfaces": [
+      {
+        "name": "G0/0",
+        "ip": "172.31.101.6",
+        "subnet_mask": "28",
+        "description": "Connect to G1/0 of S0",
+        "status": "up"
+      },
+      {
+        "name": "G0/1",
+        "ip": "172.31.101.50",
+        "subnet_mask": "28",
+        "description": "Connect to G0/2 of R2",
+        "status": "up"
+      },
+      {
+        "name": "G0/2",
+        "ip": "192.168.122.94",
+        "subnet_mask": "24",
+        "description": "Connect to WAN",
+        "status": "up"
+      },
+      {
+        "name": "G0/3",
+        "ip": "unassigned",
+        "subnet_mask": "no subnet",
+        "description": "Not Use",
+        "status": "admin down"
+      }
+    ]
+  }
+]
