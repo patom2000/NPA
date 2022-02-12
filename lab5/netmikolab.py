@@ -1,6 +1,7 @@
 from netmiko import ConfigInvalidException, ConnectHandler
 import ast #to covert env string to dict
 from dotenv import dotenv_values
+import re
 
 config = dotenv_values(".env")
 routers = ast.literal_eval(config["ROUTER"])
@@ -55,8 +56,12 @@ def get_subnet(device, interface):
     
 def get_ip(device_info, interface):
     data = get_ip_list(device_info)
-    result = output_text_to_list(data)
-    return get_result_from_interface(interface, result, 0)[1]
+    data_list = output_text_to_list(data)
+    for line in data_list[1:]:
+        int_prefix, int_num, int_ip = re.search(r"(\w)\w+(\d\/\d+)\s+(\d+.\d+.\d+.\d+|unassigned)", line).groups()
+        int_name = int_prefix + int_num
+        if int_name == interface:
+            return int_ip
             
 def get_desc(device_info, interface):
     data = get_int_desc_list(device_info)
