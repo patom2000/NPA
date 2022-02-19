@@ -6,16 +6,17 @@ access_token = "ZjM3OTJhNGItNDkyMS00NWE0LWIzYmMtZDkwMDFkMmVjODkyMWJjZTk1ZWQtMmI5
 room_id = "Y2lzY29zcGFyazovL3VybjpURUFNOnVzLXdlc3QtMl9yL1JPT00vNTg4MjliOTAtOTE5Mi0xMWVjLWI3ZjMtODFlZDdmNGJiODhm"
 url = "https://webexapis.com/v1/memberships"
 person_email = "62070184@it.kmitl.ac.th"
+"""
 
+access_token = 'your_token_here'
+room_id = 'your_room_id'
+person_email = 'new-user@example.com'
+url = 'https://webexapis.com/v1/memberships'
+"""
 headers = {
-    "Authorization": f'Bearer {access_token}',
-    "Content-Type": "application/json"
+    'Authorization': 'Bearer {}'.format(access_token),
+    'Content-Type': 'application/json'
 }
-
-params = {
-    'roomId': room_id,
-    'personEmail': person_email
-}
-res = requests.post(url, headers=headers, params=params)
-
-print(json.dumps(res.json(), indent=4))
+params = {'roomId': room_id, 'personEmail': person_email}
+res = requests.post(url, headers=headers, json=params)
+print(res.json())
