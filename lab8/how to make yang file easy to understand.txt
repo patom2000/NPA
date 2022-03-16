@@ -1,0 +1,6 @@
+1. after open Yang github select file and open raw 
+2. wget link raw file
+3. pyang -f tree file.yang
+? = must not have
+* = must have
+
