@@ -1,6 +1,4 @@
 # Fill in this file with the authentication code from the Webex Teams exercise
-from email import header
-from os import access
 import requests
 import json
 
