@@ -1,0 +1,14 @@
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                     PORTS               NAMES
+678dd9c8c302        sampleapp           "/bin/sh -c 'python …"   2 minutes ago       Exited (2) 2 minutes ago                       samplerunning
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                     PORTS               NAMES
+678dd9c8c302        sampleapp           "/bin/sh -c 'python …"   3 minutes ago       Exited (2) 3 minutes ago                       samplerunning
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                     PORTS               NAMES
+678dd9c8c302        sampleapp           "/bin/sh -c 'python …"   6 minutes ago       Exited (2) 6 minutes ago                       samplerunning
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES
+678dd9c8c302        sampleapp           "/bin/sh -c 'python …"   12 minutes ago      Exited (2) 12 minutes ago                       samplerunning
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES
+794e91292d12        sampleapp           "/bin/sh -c 'python3…"   18 minutes ago      Exited (2) 18 minutes ago                       samplerunning
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                    PORTS               NAMES
+794e91292d12        sampleapp           "/bin/sh -c 'python3…"   45 hours ago        Exited (2) 45 hours ago                       samplerunning
+CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                    NAMES
+768fbc510fff        sampleapp           "/bin/sh -c 'python3…"   About a minute ago   Up About a minute   0.0.0.0:8080->8080/tcp   samplerunning
