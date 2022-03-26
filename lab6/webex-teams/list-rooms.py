@@ -1,5 +1,4 @@
 # Fill in this file with the rooms/spaces listing code from the Webex Teams exercise
-# Fill in this file with the authentication code from the Webex Teams exercise
 import requests
 import json
 
