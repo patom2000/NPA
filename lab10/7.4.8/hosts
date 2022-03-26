@@ -1,0 +1,2 @@
+[webservers]
+192.168.253.128 ansible_ssh_user=oem ansible_ssh_pass=123
