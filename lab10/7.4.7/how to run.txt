@@ -1,0 +1,1 @@
+add username, password, host ip in "hosts"

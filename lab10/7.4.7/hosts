@@ -1,0 +1,2 @@
+# enter the host or devices for Ansible playbooks
+CSR1kv ansible_user="username" ansible_password="password" ansible_host=10.0.15.111 ansible_port=22
