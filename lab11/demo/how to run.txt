@@ -1,0 +1,5 @@
+1. add key in line 5 - 10
+2. add path ssh key pem file
+3. terraform plan
+4. terraform plan -out demo.tfplan
+5. terraform apply demo.tfplan
