@@ -94,6 +94,8 @@ resource "aws_route_table" "publicRoute" {
         }
     tags ={
         Name = "publicRoute"
+        itclass = "npa22"
+        itgroup = "group1"
     }
 }
 
@@ -152,6 +154,8 @@ resource "aws_instance" "Server1" {
   }
   tags ={
       Name = "Server1"
+      itclass = "npa22"
+      itgroup = "group1"
   }
 }
 
